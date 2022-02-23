@@ -135,7 +135,8 @@ export const getRouter = (
 
     const activity = createConversationUpdateActivity(
       serviceUrl,
-      conversationId
+      conversationId,
+      req.body.diagflowId
     );
     fetch(botUrl, {
       method: "POST",
@@ -510,7 +511,8 @@ const createMessageActivity = (
 
 const createConversationUpdateActivity = (
   serviceUrl: string,
-  conversationId: string
+  conversationId: string,
+  diagflowId: string
 ): IConversationUpdateActivity => {
   const activity: IConversationUpdateActivity = {
     type: "conversationUpdate",
@@ -534,6 +536,7 @@ const createConversationUpdateActivity = (
     },
     membersRemoved: [],
     from: { id: "offline-directline", name: "Offline Directline Server" },
+    channelData: { diagflowId },
   };
   return activity;
 };
